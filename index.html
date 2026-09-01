@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>كن رئيس وزراء العراق — لعبة القرارات السياسية</title>
-  <meta name="description" content="أول لعبة محاكاة سياسية عراقية 🇮🇶 — كن رئيس وزراء العراق: وازن قوى الدولة، اكسب ثقة البرلمان، وأدر الاقتصاد والنفط والأمن. كم شهراً تصمد في الحكم؟">
+  <meta name="description" content="أول لعبة محاكاة سياسية عراقية 🇮🇶 — كن رئيس وزراء العراق: وازن قوى الدولة، اكسب ثقة البرلمان، وأدر الاقتصاد والنفط والأمن. كم شهراً تصمد في الحكم؟ Be the PM of Iraq — a political strategy game in Arabic &amp; English.">
   <style>
     :root {
       --green: #1B7A5A; --gold: #C89B3C; --red: #A83232;
@@ -17,7 +17,19 @@
     }
     .flag { height: 8px; display: flex; }
     .flag div { flex: 1; }
-    .hero { max-width: 720px; margin: 0 auto; padding: 48px 20px 32px; text-align: center; }
+    /* مبدّل اللغة — نفس مبدأ اللعبة: ظاهرٌ من أول نظرة، والعربية الافتراض،
+       ولا تخمين بلغة المتصفح (هواتف إنكليزية كثيرة لقرّاء عربية). */
+    .lang {
+      display: flex; justify-content: center; gap: 0; margin: 18px auto 0;
+      width: fit-content; border: 1px solid #D8D3C4; border-radius: 999px;
+      overflow: hidden; background: var(--surface);
+    }
+    .lang button {
+      border: 0; background: transparent; padding: 7px 22px; font-size: 14.5px;
+      font-family: inherit; cursor: pointer; color: var(--muted);
+    }
+    .lang button.on { background: var(--green); color: #fff; font-weight: 700; }
+    .hero { max-width: 720px; margin: 0 auto; padding: 26px 20px 32px; text-align: center; }
     .emblem { font-size: 72px; }
     h1 { font-size: clamp(28px, 7vw, 42px); margin: 12px 0 8px; color: var(--green); }
     .tag { color: var(--muted); font-size: 18px; max-width: 34em; margin: 0 auto 28px; }
@@ -32,7 +44,7 @@
     /* زرّا المنصتين متكافئان بصرياً — لا «أصلي» و«إضافي» */
     .cta.ios { background: var(--ink); box-shadow: 0 4px 14px rgba(28,35,33,.35); }
     .cta small { display: block; font-weight: 400; font-size: 12px; opacity: .85; }
-    .cta .txt { text-align: right; line-height: 1.35; }
+    .cta .txt { text-align: start; line-height: 1.35; }
     .features {
       max-width: 720px; margin: 24px auto; padding: 0 20px;
       display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px;
@@ -52,31 +64,52 @@
 </head>
 <body>
   <div class="flag"><div style="background:#CE1126"></div><div style="background:#fff"></div><div style="background:#000"></div></div>
+  <div class="lang" role="group" aria-label="Language">
+    <button id="btn-ar" class="on" onclick="setLang('ar')">عربي</button>
+    <button id="btn-en" onclick="setLang('en')">English</button>
+  </div>
   <div class="hero">
     <div class="emblem">🏛️</div>
-    <h1>كن رئيس وزراء العراق</h1>
-    <p class="tag">أول لعبة محاكاة سياسية عراقية 🇮🇶 — وازن قوى الدولة، اكسب ثقة البرلمان، أدر الاقتصاد والنفط والأمن، واصمد في الحكم أطول مدة ممكنة. قراراتك تصنع التاريخ… أو تُسقط الحكومة!</p>
+    <h1 data-ar="كن رئيس وزراء العراق" data-en="Be the PM of Iraq">كن رئيس وزراء العراق</h1>
+    <p class="tag"
+       data-ar="أول لعبة محاكاة سياسية عراقية 🇮🇶 — وازن قوى الدولة، اكسب ثقة البرلمان، أدر الاقتصاد والنفط والأمن، واصمد في الحكم أطول مدة ممكنة. قراراتك تصنع التاريخ… أو تُسقط الحكومة!"
+       data-en="A political strategy game set in Iraq 🇮🇶 — balance the powers of the state, win parliament's confidence, run the economy, oil and security, and survive in office as long as you can. Your decisions make history… or bring the government down!">أول لعبة محاكاة سياسية عراقية 🇮🇶 — وازن قوى الدولة، اكسب ثقة البرلمان، أدر الاقتصاد والنفط والأمن، واصمد في الحكم أطول مدة ممكنة. قراراتك تصنع التاريخ… أو تُسقط الحكومة!</p>
     <div class="stores">
       <a class="cta" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game">
         <span>▶</span>
-        <span class="txt">حمّلها من Google Play<small>لهواتف أندرويد — مجاناً</small></span>
+        <span class="txt"><span data-ar="حمّلها من Google Play" data-en="Get it on Google Play">حمّلها من Google Play</span><small data-ar="لهواتف أندرويد — مجاناً" data-en="For Android — free">لهواتف أندرويد — مجاناً</small></span>
       </a>
       <a class="cta ios" href="https://apps.apple.com/app/id6806643471">
         <span>🍎</span>
-        <span class="txt">حمّلها من App Store<small>للآيفون — مجاناً</small></span>
+        <span class="txt"><span data-ar="حمّلها من App Store" data-en="Get it on the App Store">حمّلها من App Store</span><small data-ar="للآيفون — مجاناً" data-en="For iPhone — free">للآيفون — مجاناً</small></span>
       </a>
     </div>
   </div>
   <div class="features">
-    <div class="card"><b>🗳️ انتخابات وولايات</b><span>اكسب ثقة الشعب وجدّد حكمك كل أربع سنوات</span></div>
-    <div class="card"><b>🎴 250+ بطاقة قرار</b><span>أزمات وفرص ومؤامرات — لكل قرار ثمن</span></div>
-    <div class="card"><b>🏆 صدارة عالمية</b><span>نافس اللاعبين على لقب الأطول حكماً</span></div>
-    <div class="card"><b>🌐 عربي و English</b><span>اختر لغتك من أول شاشة — Arabic &amp; English</span></div>
-    <div class="card"><b>📱 تعمل بلا إنترنت</b><span>العب في أي مكان — تقدمك محفوظ</span></div>
+    <div class="card"><b data-ar="🗳️ انتخابات وولايات" data-en="🗳️ Elections &amp; terms">🗳️ انتخابات وولايات</b><span data-ar="اكسب ثقة الشعب وجدّد حكمك كل أربع سنوات" data-en="Win the people's trust and renew your mandate every four years">اكسب ثقة الشعب وجدّد حكمك كل أربع سنوات</span></div>
+    <div class="card"><b data-ar="🎴 250+ بطاقة قرار" data-en="🎴 250+ decision cards">🎴 250+ بطاقة قرار</b><span data-ar="أزمات وفرص ومؤامرات — لكل قرار ثمن" data-en="Crises, opportunities and plots — every decision has a price">أزمات وفرص ومؤامرات — لكل قرار ثمن</span></div>
+    <div class="card"><b data-ar="🏆 صدارة عالمية" data-en="🏆 Global leaderboard">🏆 صدارة عالمية</b><span data-ar="نافس اللاعبين على لقب الأطول حكماً" data-en="Compete with players worldwide for the longest rule">نافس اللاعبين على لقب الأطول حكماً</span></div>
+    <div class="card"><b data-ar="🌐 عربي و English" data-en="🌐 Arabic &amp; English">🌐 عربي و English</b><span data-ar="اختر لغتك من أول شاشة — Arabic &amp; English" data-en="Pick your language on the very first screen">اختر لغتك من أول شاشة — Arabic &amp; English</span></div>
+    <div class="card"><b data-ar="📱 تعمل بلا إنترنت" data-en="📱 Works offline">📱 تعمل بلا إنترنت</b><span data-ar="العب في أي مكان — تقدمك محفوظ" data-en="Play anywhere — your progress is saved">العب في أي مكان — تقدمك محفوظ</span></div>
   </div>
   <footer>
-    <p>لعبة محاكاة ساخرة بشخصيات خيالية — لا تمثل أي جهة أو شخصية حقيقية.</p>
-    <p>للتواصل: <a href="mailto:karamcoder@gmail.com">karamcoder@gmail.com</a> · © 2026 KaramCoder</p>
+    <p data-ar="لعبة محاكاة ساخرة بشخصيات خيالية — لا تمثل أي جهة أو شخصية حقيقية."
+       data-en="A satirical simulation with fictional characters — it does not represent any real party or person.">لعبة محاكاة ساخرة بشخصيات خيالية — لا تمثل أي جهة أو شخصية حقيقية.</p>
+    <p><span data-ar="للتواصل:" data-en="Contact:">للتواصل:</span> <a href="mailto:karamcoder@gmail.com">karamcoder@gmail.com</a> · © 2026 KaramCoder</p>
   </footer>
+  <script>
+    function setLang(l) {
+      document.querySelectorAll('[data-ar]').forEach(function (el) {
+        el.innerHTML = el.getAttribute('data-' + l);
+      });
+      document.documentElement.lang = l;
+      document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+      document.getElementById('btn-ar').className = l === 'ar' ? 'on' : '';
+      document.getElementById('btn-en').className = l === 'en' ? 'on' : '';
+      try { localStorage.setItem('lang', l); } catch (e) {}
+    }
+    // العربية الافتراض دائماً؛ تُستعاد فقط رغبةٌ سبق أن اختارها الزائر بنفسه.
+    try { if (localStorage.getItem('lang') === 'en') setLang('en'); } catch (e) {}
+  </script>
 </body>
 </html>
