@@ -101,11 +101,11 @@
        data-ar="أول لعبة محاكاة سياسية عراقية 🇮🇶 — وازن قوى الدولة، اكسب ثقة البرلمان، أدر الاقتصاد والنفط والأمن، واصمد في الحكم أطول مدة ممكنة. قراراتك تصنع التاريخ… أو تُسقط الحكومة!"
        data-en="A political strategy game set in Iraq 🇮🇶 — balance the powers of the state, win parliament's confidence, run the economy, oil and security, and survive in office as long as you can. Your decisions make history… or bring the government down!">أول لعبة محاكاة سياسية عراقية 🇮🇶 — وازن قوى الدولة، اكسب ثقة البرلمان، أدر الاقتصاد والنفط والأمن، واصمد في الحكم أطول مدة ممكنة. قراراتك تصنع التاريخ… أو تُسقط الحكومة!</p>
     <div class="stores">
-      <a class="cta" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game">
+      <a class="cta" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game&amp;referrer=utm_source%3Dsite%26utm_medium%3Dlanding%26utm_campaign%3Dsite">
         <span>▶</span>
         <span class="txt"><span data-ar="حمّلها من Google Play" data-en="Get it on Google Play">حمّلها من Google Play</span><small data-ar="لهواتف أندرويد — مجاناً" data-en="For Android — free">لهواتف أندرويد — مجاناً</small></span>
       </a>
-      <a class="cta ios" href="https://apps.apple.com/app/id6806643471">
+      <a class="cta ios" href="https://apps.apple.com/app/apple-store/id6806643471?pt=129381263&amp;ct=site&amp;mt=8">
         <span>🍎</span>
         <span class="txt"><span data-ar="حمّلها من App Store" data-en="Get it on the App Store">حمّلها من App Store</span><small data-ar="للآيفون — مجاناً" data-en="For iPhone — free">للآيفون — مجاناً</small></span>
       </a>
@@ -171,6 +171,24 @@
     }
     try { if (localStorage.getItem('disc_ack') !== DISC_V) openDisc(); }
     catch (e) { openDisc(); }
+
+    // علامات القياس على رابطَي المتجرين (قرار كرم 27/9/2026): يعرف المتجران
+    // من أين جاء التنزيل — زيارةٌ من فيسبوك وإنستغرام (fbclid) أم من الصفحة.
+    // لا يُجمع هنا أي شيء عن الزائر؛ الوسم يُقرأ في لوحتَي Play وApp Store.
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search);
+        var clean = function (v) { return (v || '').replace(/[^\w.-]/g, '').slice(0, 30); };
+        var src = clean(q.get('utm_source')) || (q.has('fbclid') ? 'facebook' : 'site');
+        var camp = clean(q.get('utm_campaign')) || src;
+        var play = document.querySelector('a.cta:not(.ios)');
+        var ios = document.querySelector('a.cta.ios');
+        if (play) play.href = 'https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game&referrer=' +
+          encodeURIComponent('utm_source=' + src + '&utm_medium=landing&utm_campaign=' + camp);
+        if (ios) ios.href = 'https://apps.apple.com/app/apple-store/id6806643471?pt=129381263&ct=' +
+          encodeURIComponent(camp) + '&mt=8';
+      } catch (e) {}
+    })();
   </script>
 </body>
 </html>
