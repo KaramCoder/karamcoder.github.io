@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حمّل لعبة كن رئيس وزراء العراق</title>
+<meta name="robots" content="noindex">
+<!--
+  Smart download link for ads (Karam 1/10/2026: «زر الإعلان للتحميل… الأندرويد للأندرويد والآيفون
+  للآيفون»). The ad points here; the page sends each phone straight to its own store, tagged so the
+  installs are counted per campaign:
+    Android -> Google Play with an install referrer (utm_*), read by GA4/Firebase first_open.
+    iPhone/iPad -> App Store with pt (provider token) + ct (campaign), shown in App Store Connect
+                   Analytics > Sources > Campaigns.
+  ?c=<name> sets the campaign name (letters, digits, _ and - only; default meta_ad).
+  Anything else (desktop) stays on this page with both buttons.
+-->
+<style>
+  :root { --bg: #0b1220; --fg: #e8edf5; --muted: #9aa6b8; --btn: #1f7a4d; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif; }
+  main { max-width: 420px; padding: 24px 16px; text-align: center; }
+  h1 { font-size: 1.4rem; margin: 0 0 8px; }
+  p { color: var(--muted); margin: 0 0 24px; }
+  .btns { display: flex; flex-direction: column; gap: 12px; }
+  a.btn { display: block; padding: 14px 16px; border-radius: 12px; background: var(--btn); color: #fff;
+          text-decoration: none; font-weight: 600; font-size: 1.05rem; }
+  a.btn.alt { background: #26324a; }
+</style>
+</head>
+<body>
+<main>
+  <h1>🇮🇶 كن رئيس وزراء العراق</h1>
+  <p id="msg">جارٍ فتح المتجر…</p>
+  <div class="btns">
+    <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game&amp;referrer=utm_source%3Dmeta%26utm_medium%3Dpaid_social%26utm_campaign%3Dmeta_ad">حمّلها من جوجل بلي (أندرويد)</a>
+    <a class="btn alt" id="ios" href="https://apps.apple.com/app/apple-store/id6806643471?pt=129381263&amp;ct=meta_ad&amp;mt=8">حمّلها من آب ستور (آيفون)</a>
+  </div>
+</main>
+<script>
+(function () {
+  var PKG = 'com.karamcoder.iraq_pm_game';
+  var APP_ID = '6806643471';
+  var PT = '129381263';
+  var c = 'meta_ad';
+  try {
+    var q = new URLSearchParams(location.search).get('c');
+    if (q) {
+      var clean = q.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
+      if (clean) c = clean;
+    }
+  } catch (e) {}
+  var ref = encodeURIComponent('utm_source=meta&utm_medium=paid_social&utm_campaign=' + c);
+  var play = 'https://play.google.com/store/apps/details?id=' + PKG + '&referrer=' + ref;
+  var ios = 'https://apps.apple.com/app/apple-store/id' + APP_ID + '?pt=' + PT + '&ct=' + c + '&mt=8';
+  document.getElementById('play').href = play;
+  document.getElementById('ios').href = ios;
+
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
+              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  if (isIOS) { location.replace(ios); return; }
+  if (isAndroid) { location.replace(play); return; }
+  document.getElementById('msg').textContent = 'اختر متجر هاتفك:';
+})();
+</script>
+</body>
+</html>
