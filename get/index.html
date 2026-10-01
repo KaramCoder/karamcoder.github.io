@@ -33,7 +33,7 @@
   <h1>🇮🇶 كن رئيس وزراء العراق</h1>
   <p id="msg">جارٍ فتح المتجر…</p>
   <div class="btns">
-    <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game&amp;referrer=utm_source%3Dmeta%26utm_medium%3Dpaid_social%26utm_campaign%3Dorganic">حمّلها من جوجل بلي (أندرويد)</a>
+    <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game&amp;referrer=utm_source%3Dmeta%26utm_medium%3Dsocial%26utm_campaign%3Dorganic">حمّلها من جوجل بلي (أندرويد)</a>
     <a class="btn alt" id="ios" href="https://apps.apple.com/app/apple-store/id6806643471?pt=129381263&amp;ct=organic&amp;mt=8">حمّلها من آب ستور (آيفون)</a>
   </div>
 </main>
@@ -51,7 +51,8 @@
       if (clean) c = clean;
     }
   } catch (e) {}
-  var ref = encodeURIComponent('utm_source=meta&utm_medium=paid_social&utm_campaign=' + c);
+  var medium = c.indexOf('meta') === 0 ? 'paid_social' : 'social';
+  var ref = encodeURIComponent('utm_source=meta&utm_medium=' + medium + '&utm_campaign=' + c);
   var play = 'https://play.google.com/store/apps/details?id=' + PKG + '&referrer=' + ref;
   var ios = 'https://apps.apple.com/app/apple-store/id' + APP_ID + '?pt=' + PT + '&ct=' + c + '&mt=8';
   document.getElementById('play').href = play;
