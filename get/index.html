@@ -12,7 +12,7 @@
     Android -> Google Play with an install referrer (utm_*), read by GA4/Firebase first_open.
     iPhone/iPad -> App Store with pt (provider token) + ct (campaign), shown in App Store Connect
                    Analytics > Sources > Campaigns.
-  ?c=<name> sets the campaign name (letters, digits, _ and - only; default meta_ad).
+  ?c=<name> sets the campaign name (letters, digits, _ and - only; default organic; the Meta ad uses ?c=meta_ad).
   Anything else (desktop) stays on this page with both buttons.
 -->
 <style>
@@ -33,8 +33,8 @@
   <h1>🇮🇶 كن رئيس وزراء العراق</h1>
   <p id="msg">جارٍ فتح المتجر…</p>
   <div class="btns">
-    <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game&amp;referrer=utm_source%3Dmeta%26utm_medium%3Dpaid_social%26utm_campaign%3Dmeta_ad">حمّلها من جوجل بلي (أندرويد)</a>
-    <a class="btn alt" id="ios" href="https://apps.apple.com/app/apple-store/id6806643471?pt=129381263&amp;ct=meta_ad&amp;mt=8">حمّلها من آب ستور (آيفون)</a>
+    <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.karamcoder.iraq_pm_game&amp;referrer=utm_source%3Dmeta%26utm_medium%3Dpaid_social%26utm_campaign%3Dorganic">حمّلها من جوجل بلي (أندرويد)</a>
+    <a class="btn alt" id="ios" href="https://apps.apple.com/app/apple-store/id6806643471?pt=129381263&amp;ct=organic&amp;mt=8">حمّلها من آب ستور (آيفون)</a>
   </div>
 </main>
 <script>
@@ -42,7 +42,8 @@
   var PKG = 'com.karamcoder.iraq_pm_game';
   var APP_ID = '6806643471';
   var PT = '129381263';
-  var c = 'meta_ad';
+  // No ?c= means an organic link (post captions, bio, page button); the paid ad passes ?c=meta_ad.
+  var c = 'organic';
   try {
     var q = new URLSearchParams(location.search).get('c');
     if (q) {
