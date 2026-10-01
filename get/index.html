@@ -60,9 +60,13 @@
   var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
               (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/i.test(ua);
-  if (isIOS) { location.replace(ios); return; }
-  if (isAndroid) { location.replace(play); return; }
-  document.getElementById('msg').textContent = 'اختر متجر هاتفك:';
+  var target = isIOS ? ios : (isAndroid ? play : null);
+  if (!target) { document.getElementById('msg').textContent = 'اختر متجر هاتفك:'; return; }
+  // Redirect only after the page has loaded: the Meta campaign optimises for landing-page views,
+  // which Meta's in-app browser records on page load (the site has no pixel). An instant
+  // location.replace() would leave before the load event and the views would stop counting.
+  var go = function () { setTimeout(function () { location.replace(target); }, 400); };
+  if (document.readyState === 'complete') { go(); } else { window.addEventListener('load', go); }
 })();
 </script>
 </body>
