@@ -13,6 +13,9 @@
     iPhone/iPad -> App Store with pt (provider token) + ct (campaign), shown in App Store Connect
                    Analytics > Sources > Campaigns.
   ?c=<name> sets the campaign name (letters, digits, _ and - only; default organic; the Meta ad uses ?c=meta_ad).
+  The campaign gets a placement suffix (12/10/2026) so installs can be compared per app: _ig when the page
+  opens inside Instagram's in-app browser, _fb inside Facebook's, nothing elsewhere. ?p=<ig|fb|...> overrides
+  the detection (a Meta URL parameter p={{site_source_name}} would fill it).
   Anything else (desktop) stays on this page with both buttons.
 -->
 <style>
@@ -52,13 +55,27 @@
     }
   } catch (e) {}
   var medium = c.indexOf('meta') === 0 ? 'paid_social' : 'social';
+  var ua = navigator.userAgent || '';
+  // Placement: which Meta app opened this page. An explicit ?p= wins; an unexpanded macro (too long) is ignored.
+  var place = '';
+  try {
+    var pq = new URLSearchParams(location.search).get('p');
+    if (pq) {
+      var pc = pq.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (pc && pc.length <= 6) place = pc;
+    }
+  } catch (e) {}
+  if (!place) {
+    if (/Instagram/i.test(ua)) place = 'ig';
+    else if (/FBAN|FBAV|FB_IAB/i.test(ua)) place = 'fb';
+  }
+  if (place) c = c.slice(0, 40 - place.length - 1) + '_' + place;
   var ref = encodeURIComponent('utm_source=meta&utm_medium=' + medium + '&utm_campaign=' + c);
   var play = 'https://play.google.com/store/apps/details?id=' + PKG + '&referrer=' + ref;
   var ios = 'https://apps.apple.com/app/apple-store/id' + APP_ID + '?pt=' + PT + '&ct=' + c + '&mt=8';
   document.getElementById('play').href = play;
   document.getElementById('ios').href = ios;
 
-  var ua = navigator.userAgent || '';
   var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
               (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/i.test(ua);
